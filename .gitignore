@@ -1,0 +1,7 @@
+# ignore binary files
+*.[oa]
+*/*.[oa]
+*/*/*.[oa]
+
+# wtf is stamps
+stamps
