@@ -2,6 +2,9 @@
 *.[oa]
 */*.[oa]
 */*/*.[oa]
+*.[outv]
+*/*.outv
+*/*/*.outv
 
 # wtf is stamps
 stamps
