@@ -783,6 +783,9 @@ void disksim_simulate_event (int num)
       break;
     }
 
+    fprintf(debugfile, "%d\n", curr->type);
+    fflush(debugfile);
+    
     simtime = curr->time;
     
     if (curr->type == INTR_EVENT) 
@@ -841,6 +844,9 @@ void disksim_simulate_event (int num)
 
 static void disksim_setup_outputfile (char *filename, char *mode)
 {
+
+   strcpy(disksim->debugfilename, "/home/deblurkdev/deblurk/disksim-4.0/sara.debug");
+
    if (strcmp(filename, "stdout") == 0) {
       outputfile = stdout;
    } 
@@ -850,7 +856,12 @@ static void disksim_setup_outputfile (char *filename, char *mode)
        exit(1);
      }
    }
-   
+  
+  if ((debugfile = fopen(disksim->debugfilename, mode)) == NULL) {
+       fprintf(stderr, "Debugfile %s cannot be opened for write access\n", disksim->debugfilename);
+       exit(1);
+  }
+
    if (strlen(filename) <= 255) {
       strcpy (disksim->outputfilename, filename);
    } 
@@ -1060,6 +1071,8 @@ void disksim_run_simulation ()
   while (disksim->stop_sim == FALSE) {
     disksim_simulate_event(event_count);
     //    printf("disksim_run_simulation: event %d\n", event_count);
+    //fprintf(debugfile, "%d:\t", event_count);
+    //fflush(debugfile);
     event_count++;
   }
   // printf("disksim_run_simulation(): simulated %d events\n", event_count);
