@@ -331,6 +331,7 @@ struct ctlrinfo;
 struct pf_info;
 struct synthio_info;
 struct iotrace_info;
+
 struct rand48_info;
 
 typedef event*(*disksim_iodone_notify_t)(ioreq_event *, void *ctx);
@@ -366,10 +367,16 @@ typedef struct disksim {
    FILE * statdeffile;
    FILE * outputfile;
    FILE * outios;
+  
+   FILE * debugfile;
+
    char   iotracefilename[256];
    char   outputfilename[256];
    char   outiosfilename[256];
    char   checkpointfilename[256];
+
+   char   debugfilename[256];
+
    fpos_t iotracefileposition;
    fpos_t outputfileposition;
    fpos_t outiosfileposition;
@@ -435,6 +442,7 @@ extern disksim_t *disksim;
 #define outputfile       (disksim->outputfile)
 #define outios           (disksim->outios)
 
+#define debugfile        (disksim->debugfile)
 
 #ifndef _WIN32
 #define	min(x,y)	((x) < (y) ? (x) : (y))
